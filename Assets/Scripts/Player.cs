@@ -15,10 +15,31 @@ public class Player : MonoBehaviour
     public Text scoreText;
 
     public GameObject deathPanel;
+
+    public Animator animator;
+    public SpriteRenderer spriteRenderer;
     
     void Update()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
+
+        if (horizontalInput > 0)
+        {
+            spriteRenderer.flipX = true;
+        }
+        else if (horizontalInput < 0)
+        {
+            spriteRenderer.flipX = false;
+        }
+
+        if (horizontalInput == 0)
+        {
+            animator.SetBool("isMoving", false);
+        }
+        else
+        {
+            animator.SetBool("isMoving", true);
+        }
         
         rb.velocity = new Vector2(horizontalInput * speed, rb.velocity.y);
 
